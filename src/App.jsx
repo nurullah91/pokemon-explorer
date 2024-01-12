@@ -9,7 +9,9 @@ function App() {
   return (
     <>
       <Navbar></Navbar>
-      <Outlet></Outlet>
+      <div className='min-h-screen flex items-center'>
+        <Outlet></Outlet>
+      </div>
       <Footer></Footer>
 
     </>
