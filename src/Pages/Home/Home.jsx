@@ -17,8 +17,6 @@ const Home = () => {
             .catch(err => console.log(err))
     }, [])
 
-    console.log(pokemon);
-
 
     return (
         <div className='w-11/12 lg:w-9/12 mx-auto mt-12'>

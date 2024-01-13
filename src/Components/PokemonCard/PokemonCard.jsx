@@ -4,6 +4,11 @@ import { Link } from "react-router-dom";
 
 const PokemonCard = ({ item }) => {
 
+    const pokemonURL = item.url;
+    const segments = pokemonURL.split("/");
+    const id = segments[segments.length - 2];
+    
+
 
 
 
@@ -12,7 +17,7 @@ const PokemonCard = ({ item }) => {
             <div className="flex justify-between items-center">
 
                 <h1 className="text-4xl capitalize">{item.name}</h1>
-                <Link to='/pokemon-details' className="bg-yellow-700 px-3 py-2 rounded-r-full">View Details</Link>
+                <Link to={`/pokemon-details/${id}` }className="bg-yellow-600 px-3 py-2 rounded-r-full">View Details</Link>
             </div>
         </div>
     );

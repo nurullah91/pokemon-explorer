@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Home from './Pages/Home/Home.jsx';
 import PokemonDetails from './Pages/PokemonDetails/PokemonDetails.jsx';
+import Error from './Pages/Error/Error.jsx';
 
 
 
@@ -15,13 +16,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/",
         element: <Home></Home>
       },
       {
-        path: "pokemon-details",
+        path: "pokemon-details/:id",
         element: <PokemonDetails></PokemonDetails>
       }
     ]
@@ -31,7 +33,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-   
+    <RouterProvider router={router} />   
   </React.StrictMode>,
 )
