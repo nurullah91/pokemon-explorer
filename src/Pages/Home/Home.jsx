@@ -26,22 +26,24 @@ const Home = () => {
         event.preventDefault();
         const searchText = event.target.text.value;
 
-        // make the text lowercase to avoid error
-        const searchLowercase = searchText.toLowerCase()
+        if (searchText) {
+            // make the text lowercase to avoid error
+            const searchLowercase = searchText.toLowerCase()
+            const url = `https://pokeapi.co/api/v2/pokemon/${searchLowercase}`;
+            // get data using axios 
+            axios.get(url)
+                .then(data => setPokemon(data.data.forms))
+                .catch(err => {
+                    toast.error('Pokemon not found.')
+                    setPokemon([]);
+                    console.log(err)
+                })
+        }
+        else{
+            toast.error("You don't entered any text")
+        }
 
-
-        const url = `https://pokeapi.co/api/v2/pokemon/${searchLowercase}`;
-
-        axios.get(url)
-            .then(data => setPokemon(data.data.forms))
-            .catch(err => {
-                toast.error('Pokemon not found.')
-                setPokemon([]);
-                console.log(err)
-            })
-
-
-        // if api don't work you can use this filter method
+        // if api don't work this filter method can be used
 
         // // fetch all the pokemon data again for avoid empty search without reload and then right search 
         // const url = "https://pokeapi.co/api/v2/pokemon?limit=20";
@@ -57,21 +59,26 @@ const Home = () => {
 
 
     const handleFilter = e => {
-        console.log(e.target.value);
-        const url = `https://pokeapi.co/api/v2/type/${e.target.value}/`;
+        const filterName = e.target.value;
+        if(filterName !== "select"){
+            const url = `https://pokeapi.co/api/v2/type/${filterName}/`;
 
-        axios.get(url)
-            .then(data => {
-                const dataArray = data.data.pokemon;
-
-                // make a new array for setPokemon 
-                const newArray = dataArray.map(item => ({
-                    name: item.pokemon.name,
-                    url: item.pokemon.url
-                }))
-                setPokemon(newArray)
-            })
-            .catch(err => console.log(err))
+            axios.get(url)
+                .then(data => {
+                    const dataArray = data.data.pokemon;
+    
+                    // make a new array for setPokemon 
+                    const newArray = dataArray.map(item => ({
+                        name: item.pokemon.name,
+                        url: item.pokemon.url
+                    }))
+                    setPokemon(newArray)
+                })
+                .catch(err => {
+                    toast.error('something went wrong. Try again');
+                    console.log(err)})
+        }
+       
     }
 
     return (
@@ -117,7 +124,7 @@ const Home = () => {
             <div className="mt-10">
 
                 {
-                    pokemon.length > 0 ? pokemon.map((item, index) => <PokemonCard key={index} item={item} index={index} />) : <div className='my-10'>
+                    pokemon.length > 0 ? pokemon.map((item, index) => <PokemonCard key={index} item={item} />) : <div className='my-10'>
                         <h2 className="text-3xl text-center text-slate-500">No Pokemon data right now!</h2>
                     </div>
                 }
