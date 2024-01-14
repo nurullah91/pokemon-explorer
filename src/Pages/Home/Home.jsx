@@ -86,7 +86,7 @@ const Home = () => {
             {/* React toast */}
             <Toaster />
 
-
+<h2 className="text-center text-4xl font-bold text-slate-300">List of Pokémon</h2>
             <div className='flex flex-col md:flex-row justify-between gap-5 md:items-center'>
                 <form onSubmit={handleSearch}>
                     <div className="flex md:justify-center items-center gap-2">
