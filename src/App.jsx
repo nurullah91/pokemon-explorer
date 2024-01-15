@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Navbar></Navbar>
-      <div className='min-h-screen flex'>
+      <div className='min-h-screen flex overflow-hidden'>
         <Outlet></Outlet>
       </div>
       <Footer></Footer>

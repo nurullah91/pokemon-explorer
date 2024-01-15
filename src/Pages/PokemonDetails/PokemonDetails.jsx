@@ -15,47 +15,93 @@ const PokemonDetails = () => {
             .catch(err => console.log(err))
     }, [id])
 
-    console.log(pokemonData);
+
+    const { abilities, types, base_experience, moves, stats, name, weight } = pokemonData;
+
+    console.log({ abilities, types, base_experience, moves, stats, name, weight })
+    // console.log(pokemonData);
     return (
-       pokemonData.name? <div className="text-white w-11/12 lg:w-9/12 mx-auto">
+        pokemonData.name ? <div className="text-white w-11/12 lg:w-9/12 mx-auto">
 
-            {pokemonData.name &&
+            {name &&
 
-                <h1 className="text-5xl text-center uppercase my-4 text-yellow-600">{pokemonData.name}</h1>
+                <h1 className="text-5xl text-center uppercase my-4 text-yellow-600">{name}</h1>
             }
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
-                    pokemonData.abilities && <div className="border-2 border-yellow-400 px-4 py-2 rounded-md hover:scale-110 transition-all duration-300 bg-gradient-to-br from-[#030e59] via-[#07152e] to-[#4a2317]">
-                        <h1 className="text-slate-300 text-3xl">Abilities</h1> {pokemonData.abilities.map((item, index) => <li key={index}>{item.ability?.name}</li>)}
+                    abilities && <div className="border-2 border-yellow-400 px-4 py-2 rounded-md hover:scale-110 transition-all duration-300 bg-gradient-to-br from-[#030e59] via-[#07152e] to-[#4a2317]">
+                        <h1 className="text-slate-300 text-3xl">Abilities</h1> {abilities.map((item, index) => <li key={index}>{item.ability?.name}</li>)}
 
                     </div>
                 }
 
                 {
-                    pokemonData.types && <div className="border-2 border-yellow-400 px-4 py-2 rounded-md hover:scale-110 transition-all duration-300 bg-gradient-to-br from-[#030e59] via-[#07152e] to-[#4a2317]">
+                    types && <div className="border-2 border-yellow-400 px-4 py-2 rounded-md hover:scale-110 transition-all duration-300 bg-gradient-to-br from-[#030e59] via-[#07152e] to-[#4a2317]">
 
                         <h1 className="text-slate-300 text-3xl">Types</h1>
 
-                        {pokemonData.types.map((item, index) => <li key={index}>{item.type?.name} </li>)}
+                        {types.map((item, index) => <li key={index}>{item.type?.name} </li>)}
 
                     </div>
                 }
 
                 {
-                    pokemonData.base_experience && <div className="border-2 border-yellow-400 px-4 py-2 rounded-md hover:scale-110 transition-all duration-300 bg-gradient-to-br from-[#030e59] via-[#07152e] to-[#4a2317]">
-                        <h1 className="text-slate-300 text-3xl text-center"><CountUp end={pokemonData.base_experience} /></h1>
-                       <h1 className="text-center">
-                       Base experience               
+                    base_experience && <div className="border-2 border-yellow-400 px-4 py-2 rounded-md hover:scale-110 transition-all duration-300 bg-gradient-to-br from-[#030e59] via-[#07152e] to-[#4a2317]">
+                        <h1 className="text-slate-300 text-3xl text-center"><CountUp end={base_experience} /></h1>
+                        <h1 className="text-center">
+                            Base experience
                         </h1>
 
                     </div>
                 }
+                {
+                    weight && <div className="border-2 border-yellow-400 px-4 py-2 rounded-md hover:scale-110 transition-all duration-300 bg-gradient-to-br from-[#030e59] via-[#07152e] to-[#4a2317]">
+                        <h1 className="text-slate-300 text-3xl text-center"><CountUp end={weight} /></h1>
+                        <h1 className="text-center">
+                            Weight
+                        </h1>
+
+                    </div>
+                }
+                {
+                    moves && <div className="border-2 border-yellow-400 px-4 py-2 rounded-md hover:scale-110 transition-all duration-300 bg-gradient-to-br from-[#030e59] via-[#07152e] to-[#4a2317]">
+
+                        <h1 className="text-slate-300 text-3xl">Moves</h1>
+
+                        {moves.length > 5 ? moves.slice(0, 5).map((item, index) => <li key={index}>{item.move?.name} </li>)
+                            :
+                            moves.map((item, index) => <li key={index}>{item.move?.name} </li>)}
+
+                        {
+                            moves.length > 5 && <li>{moves.length - 5} more</li>
+                        }
+
+                    </div>
+                }
+
+{
+                    stats && <div className="border-2 border-yellow-400 px-4 py-2 rounded-md hover:scale-110 transition-all duration-300 bg-gradient-to-br from-[#030e59] via-[#07152e] to-[#4a2317]">
+
+                        <h1 className="text-slate-300 text-3xl">Stats</h1>
+
+                        {stats.length > 5 ? stats.slice(0, 5).map((item, index) => <li key={index}>{item.stat?.name} </li>)
+                            :
+                            stats.map((item, index) => <li key={index}>{item.stat?.name} </li>)}
+
+                        {
+                            stats.length > 5 && <li>{stats.length - 5} more</li>
+                        }
+
+                    </div>
+                }
+
+
             </div>
 
-        </div> : 
-        <div className='my-10 w-11/12 lg:w-9/12 mx-auto'>
-        <h2 className="text-3xl text-center text-slate-500">No Pokemon data right now!</h2>
-    </div>
+        </div> :
+            <div className='my-10 w-11/12 lg:w-9/12 mx-auto'>
+                <h2 className="text-3xl text-center text-slate-500">No Pokemon data right now!</h2>
+            </div>
     );
 };
 
