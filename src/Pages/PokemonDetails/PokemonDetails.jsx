@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CountUp from 'react-countup';
+import { PropagateLoader } from "react-spinners";
 
 const PokemonDetails = () => {
     const { id } = useParams();
@@ -99,8 +100,9 @@ const PokemonDetails = () => {
             </div>
 
         </div> :
-            <div className='my-10 w-11/12 lg:w-9/12 mx-auto'>
-                <h2 className="text-3xl text-center text-slate-500">No Pokemon data right now!</h2>
+            <div className='my-10 w-11/12 lg:w-9/12 mx-auto text-center bg-[#] flex flex-col items-center justify-center'>
+                <PropagateLoader color="#f2853b" />
+                
             </div>
     );
 };
